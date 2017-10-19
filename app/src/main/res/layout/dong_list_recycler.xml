@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="240dp"
+    android:layout_height="250dp"
     android:background="#00ffffff">
     <TextView
-        android:paddingTop="5dp"
         android:id="@+id/textrecycle"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:text="Text recycle"
         android:background="#00006aff"
-        android:textSize="25sp"
+        android:textSize="20sp"
+        android:gravity="left"
         android:textColor="#ffffff"
-        android:paddingBottom="5dp"
         />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycleview"
