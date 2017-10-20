@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="single" >
         <item
             android:id="@+id/railgo"
             android:icon="@drawable/ic_menu_camera"
@@ -16,10 +16,6 @@
             android:title="THUÊ PHIM" />
     </group>
 
-    <item android:title="LIST FILM" android:id="@+id/listview_menu">
-        <menu >
 
-        </menu>
-    </item>
 
 </menu>

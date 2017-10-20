@@ -11,6 +11,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,7 +39,7 @@ public class SearchType extends AppCompatActivity {
 
     private String TAG = MainActivity.class.getSimpleName();
     NavigationView naviView;
-    ListView listMenu;
+    RecyclerView listMenu;
     Toolbar menuToolbar;
     DrawerLayout drawerLayout;
     ProgressDialog pDialog;
@@ -111,7 +112,7 @@ public class SearchType extends AppCompatActivity {
 
     private void AnhXa() {
         naviView = (NavigationView) findViewById(R.id.navi_menu);
-        listMenu = (ListView) findViewById(R.id.listview_menu);
+        listMenu = (RecyclerView) findViewById(R.id.listview_menu);
         menuToolbar = (Toolbar) findViewById(R.id.toolbarmanhinhchinh);
         imageView = (ImageView) findViewById(R.id.menubar);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
@@ -235,23 +236,30 @@ public class SearchType extends AppCompatActivity {
                             }
                             SubnavigationAdapter subadapter = new SubnavigationAdapter(SearchType.this,R.layout.dong_menu,listNavigation);
                             listMenu.setAdapter(subadapter);
-                            listMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    try {
-                                        JSONObject jsonObject_sub = new JSONObject(listNavigation.get(position).getData());
-                                        Intent intent_searchtype = new Intent(SearchType.this,SearchType.class);
-                                        intent_searchtype.putExtra("offerings",jsonObject_sub.getString("offering"));
-                                        intent_searchtype.putExtra("category",jsonObject_sub.getString("category"));
-                                        intent_searchtype.putExtra("genre",jsonObject_sub.getString("genre"));
-                                        intent_searchtype.putExtra("url",url_title);
-                                        SearchType.this.startActivity(intent_searchtype);
-                                        overridePendingTransition(R.anim.slide_down,R.anim.slide_up);
-                                    } catch (JSONException e) {
-                                        Toast.makeText(SearchType.this,"Lỗi rồi anh em ey...........", Toast.LENGTH_LONG).show();
-                                    }
-                                }
-                            });
+                            listMenu.addOnItemTouchListener(
+                                    new RecyclerItemClickListener(SearchType.this, listMenu ,new RecyclerItemClickListener.OnItemClickListener() {
+                                        @Override public void onItemClick(View view, int position) {
+                                            String data_list = listNavigation.get(position).getData();
+                                            try {
+                                                JSONObject jsonObject_sub = new JSONObject(listNavigation.get(position).getData());
+                                                Intent intent_searchtype = new Intent(SearchType.this,SearchType.class);
+                                                intent_searchtype.putExtra("offerings",jsonObject_sub.getString("offering"));
+                                                intent_searchtype.putExtra("category",jsonObject_sub.getString("category"));
+                                                intent_searchtype.putExtra("genre",jsonObject_sub.getString("genre"));
+                                                intent_searchtype.putExtra("url",url_title);
+                                                SearchType.this.startActivity(intent_searchtype);
+                                                overridePendingTransition(R.anim.slide_down,R.anim.slide_up);
+                                            } catch (JSONException e) {
+                                                Toast.makeText(SearchType.this,"Không tìm thấy dữ liệu ",Toast.LENGTH_LONG).show();
+                                            }
+                                        }
+
+                                        @Override public void onLongItemClick(View view, int position) {
+
+                                        }
+                                    })
+                            );
+//
 
                         }
                     }

@@ -1,6 +1,7 @@
 package com.ldb.bin.newapp;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +10,14 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import static android.R.attr.data;
+
 /**
  * Created by Bin on 09/12/2017.
  */
 
-public class SubnavigationAdapter extends BaseAdapter {
+public class SubnavigationAdapter extends  RecyclerView.Adapter<SubnavigationAdapter.ViewHolder> {
+
     private Context context;
     private int layout;
     private ArrayList<Subnavigation> subnavigationArrayList;
@@ -25,39 +29,30 @@ public class SubnavigationAdapter extends BaseAdapter {
     }
 
     @Override
-    public int getCount() {
+    public SubnavigationAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        View itemView = layoutInflater.inflate(R.layout.dong_menu,parent,false);
+
+        return new SubnavigationAdapter.ViewHolder(itemView);
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        holder.textView.setText(subnavigationArrayList.get(position).getName());
+    }
+
+
+    @Override
+    public int getItemCount() {
         return subnavigationArrayList.size();
     }
 
-    @Override
-    public Object getItem(int position) {
-        return null;
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return 0;
-    }
-    private class ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder{
         TextView textView;
-    }
+        public ViewHolder(View itemView) {
+            super(itemView);
+            textView = (TextView) itemView.findViewById(R.id.txtMenu);
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
-        if (convertView == null)
-        {
-            holder = new ViewHolder();
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(layout,null);
-            holder.textView = (TextView) convertView.findViewById(R.id.txtMenu);
-            convertView.setTag(holder);
-        }else
-        {
-            holder = (ViewHolder) convertView.getTag();
         }
-        Subnavigation subnavigation = subnavigationArrayList.get(position);
-        holder.textView.setText(subnavigation.getName());
-        return convertView;
     }
 }

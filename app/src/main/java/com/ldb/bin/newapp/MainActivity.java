@@ -1,8 +1,10 @@
 package com.ldb.bin.newapp;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -103,7 +105,8 @@ public class MainActivity extends AppCompatActivity
     ImageView[] ivArrayDotsPager;
     ViewPager viewPager;
     NavigationView naviView;
-    ListView listMenu,listviewmain;
+    ListView listMenu;
+    RecyclerView listviewmain,listView_nav;
     Toolbar menuToolbar;
     DrawerLayout drawerLayout;
     TextView textViewdefault,textView,textView2,textViewmanhinh;
@@ -132,13 +135,15 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        View hView =  navigationView.getHeaderView(0);
+        Button buttonLogin = (Button) hView.findViewById(R.id.SignIn);
 
 
         if(!sharedPreferences.getString("accessToken","").equals(""))
         {
             buttonLogin.setText(sharedPreferences.getString("family_name","Đăng Nhập - Đăng Ký") + " " + sharedPreferences.getString("given_name",""));
         }
+
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -160,7 +165,6 @@ public class MainActivity extends AppCompatActivity
         Intent intent = getIntent();
         int value = intent.getIntExtra("key",0);
         create(value);
-
 
 
 
@@ -229,10 +233,10 @@ public class MainActivity extends AppCompatActivity
     private void AnhXa() {
         viewPager = (ViewPager) findViewById(R.id.pager);
         naviView = (NavigationView) findViewById(R.id.navi_menu);
-        listviewmain = (ListView) findViewById(R.id.listview_menu);
+        listviewmain = (RecyclerView) findViewById(R.id.listview_menu);
+        listView_nav = (RecyclerView) findViewById(R.id.listView_nav);
         imageView = (ImageView) findViewById(R.id.menubar);
         textViewmanhinh = (TextView) findViewById(R.id.txtbar);
-        buttonLogin = (Button) findViewById(R.id.login);
         sharedPreferences = getSharedPreferences("dataLogin",MODE_PRIVATE);
 
     }
@@ -476,7 +480,33 @@ public class MainActivity extends AppCompatActivity
 
                                 }
                                 SubnavigationAdapter subadapter = new SubnavigationAdapter(MainActivity.this,R.layout.dong_menu,listNavigation);
-//                                listMenu.setAdapter(subadapter);
+                                listView_nav.setHasFixedSize(true);
+                                LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this,LinearLayoutManager.VERTICAL,false);
+                                listView_nav.setLayoutManager(layoutManager);
+                                listView_nav.setAdapter(subadapter);
+                                listView_nav.addOnItemTouchListener(
+                                        new RecyclerItemClickListener(MainActivity.this, listView_nav ,new RecyclerItemClickListener.OnItemClickListener() {
+                                            @Override public void onItemClick(View view, int position) {
+                                                String data_list = listNavigation.get(position).getData();
+                                                try {
+                                                    Intent intent = new Intent(MainActivity.this,SearchType.class);
+                                                    JSONObject jsonObject_sub = new JSONObject(listNavigation.get(position).getData());
+                                                    intent.putExtra("offerings",jsonObject_sub.getString("offering"));
+                                                    intent.putExtra("category",jsonObject_sub.getString("category"));
+                                                    intent.putExtra("genre",jsonObject_sub.getString("genre"));
+                                                    intent.putExtra("url",url_title);
+                                                    overridePendingTransition(R.anim.slide_down,R.anim.slide_up);
+                                                    MainActivity.this.startActivity(intent);
+                                                } catch (JSONException e) {
+                                                    Toast.makeText(MainActivity.this,"Không tìm thấy dữ liệu ",Toast.LENGTH_LONG).show();
+                                                }
+                                            }
+
+                                            @Override public void onLongItemClick(View view, int position) {
+
+                                            }
+                                        })
+                                );
 //                                listMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //                                    @Override
 //                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -544,6 +574,9 @@ public class MainActivity extends AppCompatActivity
                         arraylistReccycle.add(listPlaylist);
                         if(arraylistReccycle.size()== listPlaylistID.size())
                         {
+                            listviewmain.setHasFixedSize(true);
+                            LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this,LinearLayoutManager.VERTICAL,false);
+                            listviewmain.setLayoutManager(layoutManager);
                             ListAdapter listAdapter = new ListAdapter(MainActivity.this,R.layout.dong_list_recycler,listPlaylistID,arraylistReccycle,this.url_title);
                             listviewmain.setAdapter(listAdapter);
                         }

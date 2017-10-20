@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true"
     android:largeHeap="true"
     android:id="@+id/drawerlayout"
-    tools:context="com.ldb.bin.firstdayfresher.SearchType">
+    tools:context="com.ldb.bin.newapp.SearchType">
     <ScrollView
         android:id="@+id/scrollview"
         android:layout_width="match_parent"

@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="250dp"
-    android:background="#00ffffff">
+    android:layout_height="265dp"
+    android:paddingBottom="5dp"
+    android:background="#000">
     <TextView
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
         android:id="@+id/textrecycle"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:text="Text recycle"
         android:background="#00006aff"
-        android:textSize="20sp"
+        android:textSize="25sp"
         android:gravity="left"
         android:textColor="#ffffff"
         />
@@ -17,6 +20,6 @@
         android:id="@+id/recycleview"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:nestedScrollingEnabled="false"
         />
-
 </LinearLayout>
