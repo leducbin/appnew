@@ -54,7 +54,7 @@ public class InfoFilm extends AppCompatActivity {
     public static final String railCineURL = "http://api.danet.vn/data/rails/cineplex";
     public static final String railBuffURL = "http://api.danet.vn/data/rails/buffet";
     private String TAG = MainActivity.class.getSimpleName();
-    ImageView videoView;
+    ImageView videoView,bginfo;
     RelativeLayout listView;
     Toolbar toolbar;
     ImageView imageView,image_video;
@@ -63,6 +63,7 @@ public class InfoFilm extends AppCompatActivity {
     int REQUEST_CODE_EDIT = 123;
     int REQUEST_LOGOUT = 234;
     DrawerLayout drawerLayout;
+    RelativeLayout relativeLayout;
     TextView txttitle,txtclassification,txtdescription,txtgenres,txtactors,txtlanguage,textView_epi;
     RecyclerView recyclerView,recyclerView_ep,recyclerView_related;
     LinearLayout linearLayout;
@@ -190,28 +191,16 @@ public class InfoFilm extends AppCompatActivity {
                 JSONArray poster = profile.getJSONArray("poster");
                 for (int z=0;z<poster.length();z++)
                 {
-
                     Log.e(TAG,"url " + poster.getJSONObject(z).toString());
-                    if(poster.getJSONObject(z).getInt("width") == 210){
-                        String bg_info = poster.getJSONObject(z).getString("url");
-                        Picasso.with(InfoFilm.this).load(bg_info).into(new Target() {
-                            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-                            @Override
-                            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                                Bitmap blurredBitmap = BlurBuilder.blur( InfoFilm.this, bitmap );
-                                scrollView.setBackground(new BitmapDrawable(getResources(), blurredBitmap));
-                            }
+                    String bg_info = poster.getJSONObject(z).getString("url");
+                    if(poster.getJSONObject(z).getInt("width") == 600)
+                    {
+                        Picasso.with(InfoFilm.this).load(bg_info).into(videoView);
+                        Picasso.with(InfoFilm.this).load(bg_info).into(bginfo);
 
-                            @Override
-                            public void onBitmapFailed(Drawable errorDrawable) {
+                    }
+                    else{
 
-                            }
-
-                            @Override
-                            public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-                            }
-                        });
                     }
                 }
 
@@ -626,11 +615,12 @@ public class InfoFilm extends AppCompatActivity {
     }
 
     private void AnhXa() {
-
+        bginfo = (ImageView) findViewById(R.id.bg_info);
         videoView = (ImageView) findViewById(R.id.videoview);
         listView = (RelativeLayout) findViewById(R.id.listview_video);
         imageView = (ImageView) findViewById(R.id.cencelview);
         drawerLayout = (DrawerLayout) findViewById(R.id.layout_video);
+        relativeLayout = (RelativeLayout) findViewById(R.id.info_play);
         textView = (TextView) findViewById(R.id.txtbar_video);
         image_video = (ImageView) findViewById(R.id.image_video);
         txttitle = (TextView) findViewById(R.id.txttitle);

@@ -12,29 +12,36 @@
         layout="@layout/app_bar_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-        <android.support.design.widget.NavigationView
-            android:id="@+id/nav_view"
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:theme="@style/yourStyle"
+        android:alpha="0.95"
+        app:itemTextColor="#fff"
+        app:itemIconTint="#ffffff"
+        android:fitsSystemWindows="true"
+        android:background="@color/color_navigation_list_background"
+        app:headerLayout="@layout/nav_header_main"
+        app:menu="@menu/activity_main_drawer" >
+
+        <RelativeLayout
+
+            android:id="@+id/InnerRelativeLayout"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:fitsSystemWindows="true"
-            app:headerLayout="@layout/nav_header_main"
-            app:menu="@menu/activity_main_drawer" >
+            android:layout_height="350dp"
+            android:layout_gravity="bottom"
+            android:fitsSystemWindows="true">
 
-            <RelativeLayout
-                android:id="@+id/InnerRelativeLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="400dp"
-                android:layout_gravity="bottom"
-                android:fitsSystemWindows="true">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/listView_nav"
+                android:layout_alignParentTop="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+        </RelativeLayout>
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/listView_nav"
-                    android:layout_alignParentTop="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    />
-            </RelativeLayout>
-
-        </android.support.design.widget.NavigationView>
+    </android.support.design.widget.NavigationView>
 </android.support.v4.widget.DrawerLayout>

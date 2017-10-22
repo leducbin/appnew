@@ -7,123 +7,74 @@
     android:fitsSystemWindows="true"
     android:largeHeap="true"
     android:id="@+id/drawerlayout"
+    tools:openDrawer="start"
     tools:context="com.ldb.bin.newapp.SearchType">
-    <ScrollView
-        android:id="@+id/scrollview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/linear_layout_search"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <android.support.v7.widget.Toolbar
-
-                android:id="@+id/toolbarmanhinhchinh"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="#7b95ed">
-
-                <ImageView
-                    android:id="@+id/menubar"
-                    android:layout_width="25sp"
-                    android:layout_height="25sp"
-                    android:layout_gravity="left"
-                    android:src="@drawable/ic_menu" />
-
-                <TextView
-                    android:id="@+id/txtbar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Miễn Phí"
-                    android:textColor="#ffffff"
-                    android:textSize="25sp" />
-
-                <ImageView
-                    android:id="@+id/search_info_film"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_gravity="right"
-                    android:layout_marginRight="20dp"
-                    android:src="@drawable/search" />
-            </android.support.v7.widget.Toolbar>
-
+            android:layout_height="match_parent">
             <GridView
+                android:paddingTop="60dp"
+                android:background="@drawable/abc"
                 android:id="@+id/gridview_search"
                 android:layout_width="match_parent"
-                android:layout_height="518dp"
+                android:layout_height="match_parent"
                 android:horizontalSpacing="5dp"
                 android:fitsSystemWindows="true"
                 android:numColumns="3"
                 android:verticalSpacing="3dp" />
-        </LinearLayout>
-    </ScrollView>
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbarmanhinhchinh"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:theme="@style/ThemeToolbar"
+                app:layout_collapseMode="pin"
+                >
+                <TextView
+                    android:id="@+id/txtbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="MIỄN PHÍ"
+                    android:textSize="25sp"
+                    android:textColor="#06ca31"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:paddingRight="20dp"
+                    />
+            </android.support.v7.widget.Toolbar>
+        </RelativeLayout>
     <android.support.design.widget.NavigationView
         android:id="@+id/navi_menu"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="#ae02f937"
-            android:paddingTop="15dp">
-            <TextView
+        app:theme="@style/yourStyle"
+        android:alpha="0.95"
+        app:itemTextColor="#fff"
+        app:itemIconTint="#ffffff"
+        android:fitsSystemWindows="true"
+        android:background="@color/color_navigation_list_background"
+        app:headerLayout="@layout/nav_header_main"
+        app:menu="@menu/activity_main_drawer" >
 
-                android:text="MIỄN PHÍ"
-                android:id="@+id/railgo"
-                android:textSize="25sp"
-                android:textColor="#ff1115"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingTop="15dp"
-                android:paddingBottom="5dp"
-                android:gravity="center"/>
-            <TextView
-                android:text="PHIM GÓI"
-                android:id="@+id/railcine"
-                android:textSize="25sp"
-                android:textColor="#ff1115"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingBottom="5dp"
-                android:gravity="center"
-                />
-            <TextView
-                android:text="THUÊ PHIM"
-                android:id="@+id/railbuffet"
-                android:textSize="25sp"
-                android:textColor="#ff1115"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingBottom="5dp"
-                android:gravity="center"/>
-            <ListView
-                android:id="@+id/listview_menu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
-            </ListView>
-        </LinearLayout>
         <RelativeLayout
+
             android:id="@+id/InnerRelativeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:layout_height="350dp"
             android:layout_gravity="bottom"
-            >
-            <Button
-                android:text="Đăng Nhập - Đăng Ký"
-                android:id="@+id/login"
+            android:fitsSystemWindows="true">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/listView_nav"
+                android:layout_alignParentTop="true"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 />
         </RelativeLayout>
+
     </android.support.design.widget.NavigationView>
+
 </android.support.v4.widget.DrawerLayout>

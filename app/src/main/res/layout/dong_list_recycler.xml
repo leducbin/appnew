@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="265dp"
-    android:paddingBottom="5dp"
-    android:background="#000">
+    android:layout_height="270dp"
+    android:paddingBottom="5dp">
     <TextView
         android:paddingLeft="10dp"
         android:paddingTop="10dp"
@@ -19,7 +18,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycleview"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="210dp"
         android:nestedScrollingEnabled="false"
         />
 </LinearLayout>

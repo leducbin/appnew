@@ -5,8 +5,12 @@
     android:id="@+id/layout_video"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#d4282525"
+    android:background="#00000000"
     tools:context="com.ldb.bin.newapp.InfoFilm">
+    <ImageView
+        android:id="@+id/bg_info"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,15 +23,35 @@
             android:orientation="vertical"
             >
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar_video"
+            <android.support.design.widget.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center">
+                android:theme="@style/AppTheme.AppBarOverlayInfo">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:contentScrim="#000"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:expandedTitleTextAppearance="@android:color/transparent"
+                android:fitsSystemWindows="true"
+                >
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_video"
+                android:background="@drawable/abc"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:layout_collapseMode="pin">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
                 <TextView
+                    android:gravity="center"
                     android:id="@+id/txtbar_video"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Miễn Phí"
                     android:textSize="25sp"
@@ -35,24 +59,44 @@
                     android:layout_gravity="center"
                     />
                 <ImageView
+                    android:layout_alignParentRight="true"
                     android:id="@+id/cencelview"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center|right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
                     android:layout_marginRight="20dp"
-                    android:src="@drawable/x_3"
+                    android:src="@drawable/ic_action_name"
                     />
+                </RelativeLayout>
             </android.support.v7.widget.Toolbar>
-
-            <ImageView
-                android:id="@+id/videoview"
+            </android.support.design.widget.CollapsingToolbarLayout>
+            </android.support.design.widget.AppBarLayout>
+            <RelativeLayout
+                android:id="@+id/info_play"
                 android:layout_width="match_parent"
-                android:layout_height="340dp"
-                android:background="@drawable/play"/>
+                android:layout_height="450dp">
+                <ImageView
+                    android:background="#000"
+                    android:id="@+id/videoview"
+                    android:alpha="0.97"
+                    android:scaleType="fitXY"
+
+                    android:layout_centerInParent="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_video"
+                    android:layout_centerInParent="true"
+                    />
+            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/listview_video"
-                android:layout_width="match_parent"
+                android:background="@drawable/abc"
+                android:alpha="0.97"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 >
                 <TextView
@@ -138,55 +182,66 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="15dp"
                     android:paddingRight="5dp">
-                    <RelativeLayout
+                    <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:background="@drawable/ic_trailer"
+                            android:layout_width="20sp"
+                            android:layout_height="20sp" />
                         <TextView
                             android:text="Trailer"
                             android:textColor="#ffffff"
                             android:paddingLeft="10dp"
+                            android:textSize="15dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             />
-                    </RelativeLayout>
-                    <RelativeLayout
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         >
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:background="@drawable/ic_fa"
+                            android:layout_width="20sp"
+                            android:layout_height="20sp"
                             />
                         <TextView
                             android:text="Yêu thích"
                             android:textColor="#ffffff"
+                            android:textSize="15sp"
+                            android:paddingLeft="5dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             />
-                    </RelativeLayout>
-                    <RelativeLayout
+                    </LinearLayout>
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:orientation="horizontal"
                         android:layout_gravity="right"
                         android:paddingRight="5dp"
                         >
                         <ImageView
                             android:id="@+id/share"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="20dp"
+                            android:background="@drawable/ic_share"
+                            android:layout_height="20dp"
                             />
                         <TextView
                             android:layout_below="@id/share"
                             android:text="Chia sẽ"
+                            android:paddingLeft="5dp"
+                            android:textSize="15dp"
                             android:textColor="#ffffff"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             />
-                    </RelativeLayout>
+                    </LinearLayout>
                 </android.support.v7.widget.Toolbar>
                 <TextView
                     android:paddingTop="5dp"
@@ -211,20 +266,24 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
+                <TextView
+                    android:layout_below="@id/linear_layout"
+                    android:id="@+id/lienquan"
+                    android:paddingLeft="5dp"
+                    android:text="Liên quan"
+                    android:textColor="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <android.support.v7.widget.RecyclerView
+                    android:layout_below="@id/lienquan"
+                    android:paddingLeft="5dp"
+                    android:id="@+id/recycleview_related"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
             </RelativeLayout>
-
-            <TextView
-                android:paddingLeft="5dp"
-                android:text="Liên quan"
-                android:textColor="#ffffff"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <android.support.v7.widget.RecyclerView
-                android:paddingLeft="5dp"
-                android:id="@+id/recycleview_related"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
         </LinearLayout>
 
     </ScrollView>
+
+
 </android.support.v4.widget.DrawerLayout>

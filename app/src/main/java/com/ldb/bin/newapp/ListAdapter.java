@@ -59,6 +59,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>{
         holder.recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false);
         holder.txtView.setText(subnavigation.getName());
+        holder.recyclerView.setNestedScrollingEnabled(false);
         holder.recyclerView.setLayoutManager(layoutManager);
 //        Log.e(TAG,"Xem array coi" + arr.get(i).getTen());
         ShopAdapter shopAdapter = new ShopAdapter(context,arr);

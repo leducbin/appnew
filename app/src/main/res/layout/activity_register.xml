@@ -5,123 +5,154 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/bg_register"
+    android:orientation="vertical"
+    android:background="@drawable/bgregister"
     tools:context="com.ldb.bin.newapp.Register">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-    <RelativeLayout
-        android:id="@+id/title"
-        android:padding="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="0dp">
-
-        <TextView
-            android:id="@+id/txtdanet"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:textSize="40sp"
-            android:text="DANET"
-            android:gravity="center"
-            android:textColor="#0cbf5a"
-            android:fontFamily="true"
-            />
-        <ImageView
-            android:layout_alignRight="@id/txtdanet"
-            android:id="@+id/close"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/x"/>
-        <TextView
-            android:id="@+id/txt_register"
-            android:layout_below="@id/txtdanet"
-            android:layout_width="match_parent"
+        <ImageButton
+            android:layout_alignParentRight="true"
+            android:id="@+id/backApp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Đăng ký tài khoản"
-            android:gravity="center"
-            android:textSize="20sp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/ic_action_name"
+            android:layout_marginStart="8dp"
             />
-    </RelativeLayout>
-    <LinearLayout
-        android:paddingTop="10dp"
-        android:layout_below="@id/title"
-        android:id="@+id/form_register"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
         <LinearLayout
+            android:paddingTop="90dp"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/form_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2">
-            <EditText
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:id="@+id/given_name"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="Tên"
-                />
-            <EditText
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:id="@+id/family_name"
-                android:hint="Họ"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-        <EditText
-            android:layout_margin="5dp"
-            android:id="@+id/identifier"
-            android:layout_width="match_parent"
-            android:inputType="textEmailAddress"
-            android:hint="Địa chỉ email"
-            android:layout_height="wrap_content" />
-        <EditText
-            android:hint="Điện thoại"
-            android:id="@+id/phone"
-            android:layout_margin="5dp"
-            android:inputType="phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <EditText
-            android:hint="Ngày sinh (ngày/tháng/năm)"
-            android:id="@+id/date_of_birth"
-            android:layout_margin="5dp"
-            android:inputType="date"
-            android:ems="10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <EditText
-            android:hint="Mật khẩu"
-            android:id="@+id/password"
-            android:inputType="textPassword"
-            android:layout_margin="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <EditText
-            android:id="@+id/password_confirmation"
-            android:hint="Xác nhận mật khẩu"
-            android:inputType="textPassword"
-            android:layout_margin="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <CheckBox
-            android:id="@+id/checkbox_register"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tôi đồng ý với các điều khoản sử dụng"
-            android:textColor="#04e221"
-            />
-        <Button
-            android:layout_margin="5dp"
-            android:id="@+id/register"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="ĐĂNG KÝ"
-            android:textColor="#9e260e"
-            />
-    </LinearLayout>
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/given_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Tên"
+                    android:inputType="text"
+                    app:met_baseColor="@android:color/white"
+                    app:met_floatingLabel="highlight"
+                    app:met_maxCharacters="11"
+                    app:met_primaryColor="@android:color/white"
+                    app:met_singleLineEllipsis="true" />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/family_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="2dp"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Họ"
+                    android:inputType="text"
+                    app:met_baseColor="@android:color/white"
+                    app:met_floatingLabel="highlight"
+                    app:met_maxCharacters="11"
+                    app:met_primaryColor="@android:color/white"
+                    app:met_singleLineEllipsis="true" />
+            </LinearLayout>
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/identifier"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Địa chỉ email"
+                android:inputType="textEmailAddress"
+                app:met_baseColor="@android:color/white"
+                app:met_floatingLabel="highlight"
+                app:met_primaryColor="@android:color/white"
+                app:met_singleLineEllipsis="true" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Điện thoại"
+                android:inputType="phone"
+                app:met_baseColor="@android:color/white"
+                app:met_floatingLabel="highlight"
+                app:met_maxCharacters="11"
+                app:met_primaryColor="@android:color/white"
+                app:met_singleLineEllipsis="true" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/date_of_birth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Ngày sinh (ngày/tháng/năm)"
+                android:inputType="date"
+                app:met_baseColor="@android:color/white"
+                app:met_floatingLabel="highlight"
+                app:met_maxCharacters="11"
+                app:met_primaryColor="@android:color/white"
+                app:met_singleLineEllipsis="true" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Mật khẩu"
+                android:inputType="textPassword"
+                app:met_baseColor="@android:color/white"
+                app:met_floatingLabel="highlight"
+                app:met_maxCharacters="11"
+                app:met_primaryColor="@android:color/white"
+                app:met_singleLineEllipsis="true" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/password_confirmation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Xác nhận mật khẩu"
+                android:inputType="textPassword"
+                app:met_baseColor="@android:color/white"
+                app:met_floatingLabel="highlight"
+                app:met_maxCharacters="11"
+                app:met_primaryColor="@android:color/white"
+                app:met_singleLineEllipsis="true" />
+
+            <CheckBox
+                android:id="@+id/checkbox_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tôi đồng ý với các điều khoản sử dụng"
+                android:textColor="#04e221" />
+
+            <info.hoang8f.widget.FButton
+                android:id="@+id/register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginEnd="10dp"
+                android:text="ĐĂNG KÝ"
+                android:textColor="#9e260e"
+                app:buttonColor="@color/btnSignActive"
+                app:cornerRadius="4dp"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/password"
+                app:shadowEnabled="true"
+                app:shadowHeight="5dp" />
+        </LinearLayout>
 </RelativeLayout>

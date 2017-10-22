@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <group android:checkableBehavior="single" >
         <item
             android:id="@+id/railgo"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_free"
             android:title="MIỄN PHÍ" />
         <item
             android:id="@+id/railbuffet"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_buff"
             android:title="PHIM GÓI" />
         <item
             android:id="@+id/railcine"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_money"
             android:title="THUÊ PHIM" />
     </group>
 

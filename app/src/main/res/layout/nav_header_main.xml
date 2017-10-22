@@ -13,25 +13,15 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="Bin Lê"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="leducbin94@gmail.com" />
-
-    <Button
         android:id="@+id/SignIn"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:text="Đăng Nhập - Đăng Ký"
-        android:background="#00281f1f"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:text="Sign Ip/Sign In"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:paddingBottom="5dp"/>
 
-        />
+
 
 </LinearLayout>

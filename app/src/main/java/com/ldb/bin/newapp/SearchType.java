@@ -7,14 +7,19 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
@@ -35,7 +40,7 @@ import java.util.ArrayList;
 
 import static android.R.attr.value;
 
-public class SearchType extends AppCompatActivity {
+public class SearchType extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private String TAG = MainActivity.class.getSimpleName();
     NavigationView naviView;
@@ -58,32 +63,23 @@ public class SearchType extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_type);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarmanhinhchinh);
+        setSupportActionBar(toolbar);
+        if(getSupportActionBar() != null)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.setDrawerListener(toggle);
+        toggle.syncState();
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navi_menu);
+        navigationView.setNavigationItemSelectedListener(this);
+        View hView =  navigationView.getHeaderView(0);
+        TextView buttonLogin = (TextView) hView.findViewById(R.id.SignIn);
+
+
         AnhXa();
-        ActionBar();
-        textViewdefault.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(SearchType.this, MainActivity.class);
-                myIntent.putExtra("key", value);
-                SearchType.this.startActivity(myIntent);
-            }
-        });
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(SearchType.this, MainActivity.class);
-                myIntent.putExtra("key", 1); //Optional parameters
-                SearchType.this.startActivity(myIntent);
-            }
-        });
-        textView2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(SearchType.this, MainActivity.class);
-                myIntent.putExtra("key", 2); //Optional parameters
-                SearchType.this.startActivity(myIntent);
-            }
-        });
+
         Intent intent = getIntent();
         String offerings = intent.getStringExtra("offerings");
         String category = intent.getStringExtra("category");
@@ -109,13 +105,41 @@ public class SearchType extends AppCompatActivity {
 
 
     }
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
     private void AnhXa() {
         naviView = (NavigationView) findViewById(R.id.navi_menu);
-        listMenu = (RecyclerView) findViewById(R.id.listview_menu);
-        menuToolbar = (Toolbar) findViewById(R.id.toolbarmanhinhchinh);
-        imageView = (ImageView) findViewById(R.id.menubar);
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
         textViewdefault = (TextView) findViewById(R.id.railgo);
         textViewmanhinh = (TextView) findViewById(R.id.txtbar);
         buttonLogin = (Button) findViewById(R.id.login);
@@ -126,20 +150,41 @@ public class SearchType extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("dataLogin",MODE_PRIVATE);
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         foot_view = inflater.inflate(R.layout.footer_view,null);
+        listMenu = (RecyclerView) findViewById(R.id.listView_nav);
         handler_m = new Handler_m();
 
     }
 
-    private void ActionBar()
-    {
-        imageView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view)
-            {
-                drawerLayout.openDrawer(GravityCompat.START);
-            }
-        });
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.railgo) {
+            Toast.makeText(SearchType.this,"aaaaaaaaaaaaaaaaaaa",Toast.LENGTH_LONG).show();
+        } else if (id == R.id.railbuffet) {
+
+        } else if (id == R.id.railcine) {
+
+        } else if (id == R.id.listview_menu) {
+
+        }
+
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
+
+//    private void ActionBar()
+//    {
+//        imageView.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View view)
+//            {
+//                drawerLayout.openDrawer(GravityCompat.START);
+//            }
+//        });
+//    }
 
     private class GetContacts extends AsyncTask<Void, Void, Void> {
 
@@ -235,20 +280,25 @@ public class SearchType extends AppCompatActivity {
                                 listNavigation.add(tmp);
                             }
                             SubnavigationAdapter subadapter = new SubnavigationAdapter(SearchType.this,R.layout.dong_menu,listNavigation);
+                            listMenu.setHasFixedSize(true);
+                            LinearLayoutManager layoutManager = new LinearLayoutManager(SearchType.this,LinearLayoutManager.VERTICAL,false);
+                            listMenu.setLayoutManager(layoutManager);
                             listMenu.setAdapter(subadapter);
                             listMenu.addOnItemTouchListener(
                                     new RecyclerItemClickListener(SearchType.this, listMenu ,new RecyclerItemClickListener.OnItemClickListener() {
                                         @Override public void onItemClick(View view, int position) {
                                             String data_list = listNavigation.get(position).getData();
                                             try {
+                                                Intent intent = new Intent(SearchType.this,SearchType.class);
                                                 JSONObject jsonObject_sub = new JSONObject(listNavigation.get(position).getData());
-                                                Intent intent_searchtype = new Intent(SearchType.this,SearchType.class);
-                                                intent_searchtype.putExtra("offerings",jsonObject_sub.getString("offering"));
-                                                intent_searchtype.putExtra("category",jsonObject_sub.getString("category"));
-                                                intent_searchtype.putExtra("genre",jsonObject_sub.getString("genre"));
-                                                intent_searchtype.putExtra("url",url_title);
-                                                SearchType.this.startActivity(intent_searchtype);
+                                                intent.putExtra("offerings",jsonObject_sub.getString("offering"));
+                                                intent.putExtra("category",jsonObject_sub.getString("category"));
+                                                intent.putExtra("genre",jsonObject_sub.getString("genre"));
+                                                intent.putExtra("url",url);
+                                                Log.e(TAG,"data qq "+  url);
                                                 overridePendingTransition(R.anim.slide_down,R.anim.slide_up);
+                                                SearchType.this.startActivity(intent);
+//                                                    Toast.makeText(MainActivity.this,"Đang ở đây" + url_title,Toast.LENGTH_LONG).show();
                                             } catch (JSONException e) {
                                                 Toast.makeText(SearchType.this,"Không tìm thấy dữ liệu ",Toast.LENGTH_LONG).show();
                                             }
@@ -259,6 +309,30 @@ public class SearchType extends AppCompatActivity {
                                         }
                                     })
                             );
+//                            listMenu.setAdapter(subadapter);
+//                            listMenu.addOnItemTouchListener(
+//                                    new RecyclerItemClickListener(SearchType.this, listMenu ,new RecyclerItemClickListener.OnItemClickListener() {
+//                                        @Override public void onItemClick(View view, int position) {
+//                                            String data_list = listNavigation.get(position).getData();
+//                                            try {
+//                                                JSONObject jsonObject_sub = new JSONObject(listNavigation.get(position).getData());
+//                                                Intent intent_searchtype = new Intent(SearchType.this,SearchType.class);
+//                                                intent_searchtype.putExtra("offerings",jsonObject_sub.getString("offering"));
+//                                                intent_searchtype.putExtra("category",jsonObject_sub.getString("category"));
+//                                                intent_searchtype.putExtra("genre",jsonObject_sub.getString("genre"));
+//                                                intent_searchtype.putExtra("url",url_title);
+//                                                SearchType.this.startActivity(intent_searchtype);
+//                                                overridePendingTransition(R.anim.slide_down,R.anim.slide_up);
+//                                            } catch (JSONException e) {
+//                                                Toast.makeText(SearchType.this,"Không tìm thấy dữ liệu ",Toast.LENGTH_LONG).show();
+//                                            }
+//                                        }
+//
+//                                        @Override public void onLongItemClick(View view, int position) {
+//
+//                                        }
+//                                    })
+//                            );
 //
 
                         }

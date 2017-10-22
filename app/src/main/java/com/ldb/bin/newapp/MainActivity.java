@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity
     Toolbar menuToolbar;
     DrawerLayout drawerLayout;
     TextView textViewdefault,textView,textView2,textViewmanhinh;
-    ImageView imageView,imageView_search;
+    ImageView imageView,imageView_search,bg_main;
     int menu = 0;
     int REQUEST_CODE_EDIT = 123;
     int REQUEST_LOGOUT = 234;
@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View hView =  navigationView.getHeaderView(0);
-        Button buttonLogin = (Button) hView.findViewById(R.id.SignIn);
+        TextView buttonLogin = (TextView) hView.findViewById(R.id.SignIn);
 
 
         if(!sharedPreferences.getString("accessToken","").equals(""))
@@ -235,9 +235,9 @@ public class MainActivity extends AppCompatActivity
         naviView = (NavigationView) findViewById(R.id.navi_menu);
         listviewmain = (RecyclerView) findViewById(R.id.listview_menu);
         listView_nav = (RecyclerView) findViewById(R.id.listView_nav);
-        imageView = (ImageView) findViewById(R.id.menubar);
         textViewmanhinh = (TextView) findViewById(R.id.txtbar);
         sharedPreferences = getSharedPreferences("dataLogin",MODE_PRIVATE);
+        bg_main = (ImageView) findViewById(R.id.bg_main);
 
     }
 
@@ -442,23 +442,7 @@ public class MainActivity extends AppCompatActivity
                                         }
                                         ivArrayDotsPager[position].setImageResource(R.drawable.selectdraw);
                                         String bg = listCarousel.get(position).getBanner();
-                                        Picasso.with(MainActivity.this).load(bg).into(new Target() {
-                                            @Override
-                                            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-//                                                Bitmap blurredBitmap = BlurBuilder.blur( MainActivity.this, bitmap );
-//                                                drawerLayout.setBackground(new BitmapDrawable(getResources(), blurredBitmap));
-                                            }
-
-                                            @Override
-                                            public void onBitmapFailed(Drawable errorDrawable) {
-
-                                            }
-
-                                            @Override
-                                            public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-                                            }
-                                        });
+                                        Picasso.with(MainActivity.this).load(bg).into(bg_main);
                                     }
 
                                     @Override
@@ -494,9 +478,11 @@ public class MainActivity extends AppCompatActivity
                                                     intent.putExtra("offerings",jsonObject_sub.getString("offering"));
                                                     intent.putExtra("category",jsonObject_sub.getString("category"));
                                                     intent.putExtra("genre",jsonObject_sub.getString("genre"));
-                                                    intent.putExtra("url",url_title);
+                                                    intent.putExtra("url",url);
+                                                    Log.e(TAG,"data qq "+  url);
                                                     overridePendingTransition(R.anim.slide_down,R.anim.slide_up);
                                                     MainActivity.this.startActivity(intent);
+//                                                    Toast.makeText(MainActivity.this,"Đang ở đây" + url_title,Toast.LENGTH_LONG).show();
                                                 } catch (JSONException e) {
                                                     Toast.makeText(MainActivity.this,"Không tìm thấy dữ liệu ",Toast.LENGTH_LONG).show();
                                                 }
