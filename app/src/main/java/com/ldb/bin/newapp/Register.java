@@ -12,11 +12,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -74,9 +76,23 @@ public class Register extends AppCompatActivity {
 
         };
 
+
+        date_of_birth.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b) {
+                    new DatePickerDialog(Register.this, date, myCalendar
+                            .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                            myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                } else {
+
+                }
+            }
+        });
+
         date_of_birth.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 new DatePickerDialog(Register.this, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
@@ -127,7 +143,7 @@ public class Register extends AppCompatActivity {
                         && date_of_birth.getText().toString().trim() != null
                         && password.getText().toString().trim() != null
                         && password_confirmation.getText().toString().trim() != null
-                        && checkbox_confirm.isChecked() == true
+                        && checkbox_confirm.isChecked() == true && isEmailValid(identifier.getText().toString().trim()) == true
                 ) {
                     Log.e("asfdafdfa","data test " +  isEmailValid(identifier.getText().toString().trim()));
 
@@ -197,7 +213,7 @@ public class Register extends AppCompatActivity {
                     } else {
                         builder = new AlertDialog.Builder(Register.this);
                     }
-                    builder.setTitle("Bạn chưa nhập đầy đủ thông tin đăng ký!")
+                    builder.setTitle("Bạn chưa nhập đầy đủ thông tin đăng ký,hãy kiểm tra lại!")
                             .setNegativeButton("Oke", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
 
@@ -211,7 +227,7 @@ public class Register extends AppCompatActivity {
     }
     private void AnhXa() {
         relativeLayout_bg = (RelativeLayout) findViewById(R.id.bg_register);
-        imageView_close = (ImageView) findViewById(R.id.close);
+        imageView_close = (ImageButton) findViewById(R.id.backApp);
         given_name = (EditText) findViewById(R.id.given_name);
         family_name = (EditText) findViewById(R.id.family_name);
         identifier = (EditText) findViewById(R.id.identifier);

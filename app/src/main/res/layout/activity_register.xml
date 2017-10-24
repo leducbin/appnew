@@ -21,7 +21,6 @@
             android:layout_marginStart="8dp"
             />
         <LinearLayout
-            android:paddingTop="60dp"
             android:layout_alignParentBottom="true"
             android:id="@+id/form_register"
             android:layout_width="match_parent"
@@ -32,24 +31,22 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:weightSum="2">
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/given_name"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginRight="2dp"
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Tên"
                     android:inputType="text"
                     app:met_baseColor="@android:color/white"
-                    app:met_floatingLabel="highlight"
                     app:met_maxCharacters="11"
-                    app:met_primaryColor="@android:color/white"
-                    app:met_singleLineEllipsis="true" />
+                    app:met_primaryColor="@android:color/white" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/family_name"
@@ -61,10 +58,8 @@
                     android:hint="Họ"
                     android:inputType="text"
                     app:met_baseColor="@android:color/white"
-                    app:met_floatingLabel="highlight"
                     app:met_maxCharacters="11"
-                    app:met_primaryColor="@android:color/white"
-                    app:met_singleLineEllipsis="true" />
+                    app:met_primaryColor="@android:color/white" />
             </LinearLayout>
 
             <com.rengwuxian.materialedittext.MaterialEditText
@@ -75,9 +70,7 @@
                 android:hint="Địa chỉ email"
                 android:inputType="textEmailAddress"
                 app:met_baseColor="@android:color/white"
-                app:met_floatingLabel="highlight"
-                app:met_primaryColor="@android:color/white"
-                app:met_singleLineEllipsis="true" />
+                app:met_primaryColor="@android:color/white" />
 
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/phone"
@@ -100,10 +93,8 @@
                 android:hint="Ngày sinh (ngày/tháng/năm)"
                 android:inputType="date"
                 app:met_baseColor="@android:color/white"
-                app:met_floatingLabel="highlight"
                 app:met_maxCharacters="15"
-                app:met_primaryColor="@android:color/white"
-                app:met_singleLineEllipsis="true" />
+                app:met_primaryColor="@android:color/white" />
 
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/password"
@@ -113,10 +104,8 @@
                 android:hint="Mật khẩu"
                 android:inputType="textPassword"
                 app:met_baseColor="@android:color/white"
-                app:met_floatingLabel="highlight"
                 app:met_maxCharacters="18"
-                app:met_primaryColor="@android:color/white"
-                app:met_singleLineEllipsis="true" />
+                app:met_primaryColor="@android:color/white"/>
 
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/password_confirmation"
@@ -126,10 +115,8 @@
                 android:hint="Xác nhận mật khẩu"
                 android:inputType="textPassword"
                 app:met_baseColor="@android:color/white"
-                app:met_floatingLabel="highlight"
                 app:met_maxCharacters="18"
-                app:met_primaryColor="@android:color/white"
-                app:met_singleLineEllipsis="true" />
+                app:met_primaryColor="@android:color/white" />
 
             <CheckBox
                 android:id="@+id/checkbox_register"
