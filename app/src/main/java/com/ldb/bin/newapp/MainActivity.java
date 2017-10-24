@@ -135,6 +135,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
         View hView =  navigationView.getHeaderView(0);
         TextView buttonLogin = (TextView) hView.findViewById(R.id.SignIn);
 
@@ -163,8 +164,21 @@ public class MainActivity extends AppCompatActivity
         });
 
         Intent intent = getIntent();
-        int value = intent.getIntExtra("key",0);
-        create(value);
+        menu = intent.getIntExtra("key",0);
+        create(menu);
+
+        switch (menu)
+        {
+            case 0:
+                navigationView.getMenu().getItem(0).setChecked(true);
+                break;
+            case 1:
+                navigationView.getMenu().getItem(1).setChecked(true);
+                break;
+            case 2:
+                navigationView.getMenu().getItem(2).setChecked(true);
+                break;
+        }
 
 
 
@@ -202,8 +216,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.search_info_film) {
+            Intent intent = new Intent(MainActivity.this,Search.class);
+            overridePendingTransition(R.anim.slide_down,R.anim.slide_up);
+            MainActivity.this.startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
@@ -215,18 +231,28 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.railgo) {
-            // Handle the camera action
-        } else if (id == R.id.railbuffet) {
-
-        } else if (id == R.id.railcine) {
-
-        } else if (id == R.id.listview_menu) {
-
+        if (id == R.id.railgo && menu != 0) {
+            Intent intent = new Intent(MainActivity.this,MainActivity.class);
+            intent.putExtra("key",0);
+            overridePendingTransition(R.anim.slide_down,R.anim.slide_up);
+            finish();
+            MainActivity.this.startActivity(intent);
+        } else if (id == R.id.railbuffet && menu != 1) {
+            Intent intent = new Intent(MainActivity.this,MainActivity.class);
+            intent.putExtra("key",1);
+            overridePendingTransition(R.anim.slide_down,R.anim.slide_up);
+            finish();
+            MainActivity.this.startActivity(intent);
+        } else if (id == R.id.railcine && menu != 2) {
+            Intent intent = new Intent(MainActivity.this,MainActivity.class);
+            intent.putExtra("key",2);
+            overridePendingTransition(R.anim.slide_down,R.anim.slide_up);
+            finish();
+            MainActivity.this.startActivity(intent);
         }
-
-        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerLayout.closeDrawer(GravityCompat.START);
+//
+//        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
+//        drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
@@ -471,10 +497,11 @@ public class MainActivity extends AppCompatActivity
                                 listView_nav.addOnItemTouchListener(
                                         new RecyclerItemClickListener(MainActivity.this, listView_nav ,new RecyclerItemClickListener.OnItemClickListener() {
                                             @Override public void onItemClick(View view, int position) {
-                                                String data_list = listNavigation.get(position).getData();
+                                                String data_name = listNavigation.get(position).getName();
                                                 try {
                                                     Intent intent = new Intent(MainActivity.this,SearchType.class);
                                                     JSONObject jsonObject_sub = new JSONObject(listNavigation.get(position).getData());
+                                                    intent.putExtra("title", data_name);
                                                     intent.putExtra("offerings",jsonObject_sub.getString("offering"));
                                                     intent.putExtra("category",jsonObject_sub.getString("category"));
                                                     intent.putExtra("genre",jsonObject_sub.getString("genre"));

@@ -168,11 +168,15 @@ public class InfoFilm extends AppCompatActivity {
 
             // Making a request to url and getting response
             this.reponse = sh.makeServiceCall("http://api.danet.vn/products/"+this.url_id);
-            HttpHandler eps = new HttpHandler(InfoFilm.this);
-            this.eps_reponse = eps.makeServiceCall("http://api.danet.vn/products/"+this.url_id+"/episodes");
+            Log.e(TAG,"data " + reponse);
             HttpHandler rela = new HttpHandler(InfoFilm.this);
             this.rela_reponse = rela.makeServiceCall("http://api.danet.vn/products/"+this.url_id+"/related");
-            Log.e(TAG,"data rela" + rela_reponse);
+            Log.e(TAG,"data 2 " + rela_reponse);
+            if(type.equals("series"))
+            {
+                HttpHandler eps = new HttpHandler(InfoFilm.this);
+                this.eps_reponse = eps.makeServiceCall("http://api.danet.vn/products/"+this.url_id+"/episodes");
+            }
             return null;
         }
 
@@ -180,10 +184,11 @@ public class InfoFilm extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            if (pDialog.isShowing())
+            if (pDialog.isShowing() && reponse != null)
                 pDialog.dismiss();
             try {
                 JSONObject json_reponse = new JSONObject(reponse);
+
                 JSONObject image = json_reponse.getJSONObject("image");
                 JSONObject profile = image.getJSONObject("profile");
                 String package_type = json_reponse.getString("package_type");
@@ -246,6 +251,10 @@ public class InfoFilm extends AppCompatActivity {
                     if (jsonArray_5.get(l) == null)
                     {
                         audio = "null";
+                    }
+                    else if(l == jsonArray_5.length() - 1)
+                    {
+                        audio = audio + jsonArray_5.get(l).toString();
                     }
                     else
                     {
@@ -317,8 +326,8 @@ public class InfoFilm extends AppCompatActivity {
                 }
                 else if (type.equals("movie") && package_type.equals("SVOD"))
                 {
-                    JSONObject json_eps = new JSONObject(eps_reponse);
-                    final JSONArray data = json_eps.getJSONArray("data");
+//                    JSONObject json_eps = new JSONObject(eps_reponse);
+//                    final JSONArray data = json_eps.getJSONArray("data");
                     textView_epi.setVisibility(View.GONE);
                     linearLayout.setVisibility(View.GONE);
                     videoView.setOnClickListener(new View.OnClickListener() {
@@ -449,8 +458,8 @@ public class InfoFilm extends AppCompatActivity {
 
                 }else if (type.equals("movie") && package_type.equals("TVOD"))
                 {
-                    JSONObject json_eps = new JSONObject(eps_reponse);
-                    final JSONArray data = json_eps.getJSONArray("data");
+//                    JSONObject json_eps = new JSONObject(eps_reponse);
+//                    final JSONArray data = json_eps.getJSONArray("data");
                     textView_epi.setVisibility(View.GONE);
                     linearLayout.setVisibility(View.GONE);
                     videoView.setOnClickListener(new View.OnClickListener() {
@@ -591,7 +600,7 @@ public class InfoFilm extends AppCompatActivity {
 
                 JSONObject json_rela = new JSONObject(rela_reponse);
                 JSONArray data_rela = json_rela.getJSONArray("data");
-                ArrayList<Related> arrayList_re = new ArrayList<Related>();
+                final ArrayList<Related> arrayList_re = new ArrayList<Related>();
                 for (int f=0;f<data_rela.length();f++)
                 {
                     JSONObject ob_rela = data_rela.getJSONObject(f);
@@ -607,6 +616,27 @@ public class InfoFilm extends AppCompatActivity {
                 recyclerView_related.setLayoutManager(layoutManager_related);
                 RecyclerRelatedAdapter recyclerViewAdapter_related = new RecyclerRelatedAdapter(InfoFilm.this,arrayList_re);
                 recyclerView_related.setAdapter(recyclerViewAdapter_related);
+                recyclerView_related.addOnItemTouchListener(
+                        new RecyclerItemClickListener(InfoFilm.this, recyclerView_related ,new RecyclerItemClickListener.OnItemClickListener() {
+                            @Override public void onItemClick(View view, int position) {
+                                String data_list = arrayList_re.get(position).getData();
+                                try {
+                                    Intent intent = new Intent(InfoFilm.this,InfoFilm.class);
+                                    JSONObject jsonObject_sub = new JSONObject(arrayList_re.get(position).getData());
+                                    intent.putExtra("url", jsonObject_sub.getString("package_type"));
+                                    intent.putExtra("href","/"+jsonObject_sub.getString("type")+"/"+jsonObject_sub.getInt("id"));
+                                    overridePendingTransition(R.anim.slide_down,R.anim.slide_up);
+                                    InfoFilm.this.startActivity(intent);
+//                                                    Toast.makeText(MainActivity.this,"Đang ở đây" + url_title,Toast.LENGTH_LONG).show();
+                                } catch (JSONException e) {
+                                    Toast.makeText(InfoFilm.this,"Không tìm thấy dữ liệu ",Toast.LENGTH_LONG).show();
+                                }
+                            }
+                            @Override public void onLongItemClick(View view, int position) {
+
+                            }
+                        })
+                );
 
             } catch (JSONException e) {
                 e.printStackTrace();

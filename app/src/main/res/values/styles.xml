@@ -31,6 +31,9 @@
     <style name="yourStyle" >
         <item name="android:textSize">22sp</item>
         <item name="colorControlNormal">#fff</item>
+        <item name="colorPrimary">#e10202</item>
+        <!-- Background color when SELECTED -->
+        <item name="colorControlHighlight">#e10202</item>
     </style>
     <style name="ThemeToolbar" parent="Theme.AppCompat.Light">
 

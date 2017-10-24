@@ -8,4 +8,8 @@
     <color name="btnSignActive">#A9d440</color>
     <color name="color_navigation_list_background">@drawable/abc</color>
 
+
+    <color name="btnSignActiveCre">#dc583033</color>
+
+
 </resources>

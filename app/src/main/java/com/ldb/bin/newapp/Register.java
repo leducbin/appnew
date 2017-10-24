@@ -2,7 +2,9 @@ package com.ldb.bin.newapp;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -47,6 +49,12 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         AnhXa();
+        imageView_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         final Calendar myCalendar = Calendar.getInstance();
 
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -86,7 +94,12 @@ public class Register extends AppCompatActivity {
                 Log.e("thuxem nao","data "+isEmailValid(identifier.getText().toString().trim()));
                 if(!isEmailValid(identifier.getText().toString().trim()))
                 {
-                   identifier.setBackgroundColor(0xFF00FF00);
+                    final int sdk = android.os.Build.VERSION.SDK_INT;
+                    if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                        identifier.setBackgroundDrawable( getResources().getDrawable(R.drawable.false_border) );
+                    } else {
+                        identifier.setBackground( getResources().getDrawable(R.drawable.false_border));
+                    }
                 }
             }
 
@@ -94,7 +107,12 @@ public class Register extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if(isEmailValid(identifier.getText().toString().trim()))
                 {
-                    identifier.setBackgroundColor(Color.BLUE);
+                    final int sdk = android.os.Build.VERSION.SDK_INT;
+                    if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                        identifier.setBackgroundDrawable( getResources().getDrawable(R.drawable.true_boder) );
+                    } else {
+                        identifier.setBackground( getResources().getDrawable(R.drawable.true_boder));
+                    }
                 }
             }
         });
@@ -122,7 +140,10 @@ public class Register extends AppCompatActivity {
                             if (response != null) {
 
                                 Toast.makeText(Register.this, "Bạn đã đăng ký thành công! Hãy đăng nhập lại vào hệ thống!!", Toast.LENGTH_LONG).show();
-                                finish();
+                                Intent intent = new Intent(Register.this, MainActivity.class);
+                                Register.this.startActivity(intent);
+                                overridePendingTransition(R.anim.slide_down,R.anim.slide_up);
+
 
                             }
                         }

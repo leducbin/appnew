@@ -85,6 +85,7 @@ public class SearchType extends AppCompatActivity implements NavigationView.OnNa
         String category = intent.getStringExtra("category");
         String genre = intent.getStringExtra("genre");
         String url_menu = intent.getStringExtra("url");
+        textViewmanhinh.setText(intent.getStringExtra("title"));
         try {
             final String url_search =
                     "http://api.danet.vn/products/search?types="+category + "&genres="+
@@ -130,8 +131,8 @@ public class SearchType extends AppCompatActivity implements NavigationView.OnNa
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.search_info_film) {
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -161,13 +162,20 @@ public class SearchType extends AppCompatActivity implements NavigationView.OnNa
         int id = item.getItemId();
 
         if (id == R.id.railgo) {
-            Toast.makeText(SearchType.this,"aaaaaaaaaaaaaaaaaaa",Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(SearchType.this,MainActivity.class);
+            intent.putExtra("key",0);
+            overridePendingTransition(R.anim.slide_down,R.anim.slide_up);
+            SearchType.this.startActivity(intent);
         } else if (id == R.id.railbuffet) {
-
+            Intent intent = new Intent(SearchType.this,MainActivity.class);
+            intent.putExtra("key",1);
+            overridePendingTransition(R.anim.slide_down,R.anim.slide_up);
+            SearchType.this.startActivity(intent);
         } else if (id == R.id.railcine) {
-
-        } else if (id == R.id.listview_menu) {
-
+            Intent intent = new Intent(SearchType.this,MainActivity.class);
+            intent.putExtra("key",2);
+            overridePendingTransition(R.anim.slide_down,R.anim.slide_up);
+            SearchType.this.startActivity(intent);
         }
 
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
@@ -287,10 +295,11 @@ public class SearchType extends AppCompatActivity implements NavigationView.OnNa
                             listMenu.addOnItemTouchListener(
                                     new RecyclerItemClickListener(SearchType.this, listMenu ,new RecyclerItemClickListener.OnItemClickListener() {
                                         @Override public void onItemClick(View view, int position) {
-                                            String data_list = listNavigation.get(position).getData();
+                                            String data_name = listNavigation.get(position).getName();
                                             try {
                                                 Intent intent = new Intent(SearchType.this,SearchType.class);
                                                 JSONObject jsonObject_sub = new JSONObject(listNavigation.get(position).getData());
+                                                intent.putExtra("title", data_name);
                                                 intent.putExtra("offerings",jsonObject_sub.getString("offering"));
                                                 intent.putExtra("category",jsonObject_sub.getString("category"));
                                                 intent.putExtra("genre",jsonObject_sub.getString("genre"));
@@ -354,24 +363,50 @@ public class SearchType extends AppCompatActivity implements NavigationView.OnNa
                     }
                     gridViewAdapter.setData(arrayList_list);
                     gridView.setAdapter(gridViewAdapter);
+                    gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            try {
+                                Intent intent = new Intent(SearchType.this,InfoFilm.class);
+                                JSONObject jsonObject = new JSONObject(arrayList_list.get(i).getData());
+                                intent.putExtra("url", jsonObject.getString("package_type"));
+                                intent.putExtra("href","/"+jsonObject.getString("type")+"/"+jsonObject.getInt("id"));
+                                overridePendingTransition(R.anim.slide_down,R.anim.slide_up);
+                                SearchType.this.startActivity(intent);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
 
-                }else
+                }else if(reponse_search != null && reponse_search.length() !=0 && pages != 1)
                 {
                     if (pDialog.isShowing())
                         pDialog.dismiss();
                     JSONObject jsonObject_list = new JSONObject(reponse_search);
                     JSONArray jsonArray_list = jsonObject_list.getJSONArray("data");
-                    for (int k =0;k<jsonArray_list.length();k++)
+                    if(jsonArray_list.length() != 0)
                     {
-                        JSONObject data_list = jsonArray_list.getJSONObject(k);
-                        Related tmp = new Related();
-                        tmp.setHinhanh(data_list.getJSONObject("image").getString("base_uri"));
-                        tmp.setData(data_list.toString());
-                        arrayList_list.add(tmp);
+                        for (int k =0;k<jsonArray_list.length();k++)
+                        {
+                            JSONObject data_list = jsonArray_list.getJSONObject(k);
+                            Related tmp = new Related();
+                            tmp.setHinhanh(data_list.getJSONObject("image").getString("base_uri"));
+                            tmp.setData(data_list.toString());
+                            arrayList_list.add(tmp);
+                        }
+
+                        gridViewAdapter.notifyDataSetChanged();
+                    }
+                    else if(jsonArray_list.length() == 0){
+                        isLoading = true;
+                        Log.e(TAG,"and time");
                     }
 
-                    gridViewAdapter.notifyDataSetChanged();
                 }
+
+
+
                 gridView.setOnScrollListener(new AbsListView.OnScrollListener() {
                     @Override
                     public void onScrollStateChanged(AbsListView view, int scrollState) {

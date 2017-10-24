@@ -9,13 +9,10 @@
         <item
             android:id="@+id/railbuffet"
             android:icon="@drawable/ic_buff"
-            android:title="PHIM GÓI" />
+            android:title="THUÊ PHIM" />
         <item
             android:id="@+id/railcine"
             android:icon="@drawable/ic_money"
-            android:title="THUÊ PHIM" />
+            android:title="PHIM GÓI" />
     </group>
-
-
-
 </menu>

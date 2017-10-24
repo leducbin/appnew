@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/abc"
     tools:context="com.ldb.bin.newapp.SubscriptionsList">
 
     <TextView
@@ -14,6 +15,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:textSize="30dp"
+        android:textColor="#fff"
         android:text="THUÊ BAO PHIM GÓI"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -31,56 +33,66 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:gravity="center"
+        android:textColor="#fff"
         android:layout_marginTop="8dp"
         android:text="Hãy thưởng thức tiệc Buffet Danet, với hàng..................................."
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textTitle" />
 
-    <Button
+    <info.hoang8f.widget.FButton
         android:id="@+id/button2"
         android:layout_width="267dp"
-        android:layout_height="49dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="80dp"
         android:layout_marginRight="80dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="50dp"
+        android:textColor="#fff"
+        android:layout_marginTop="100dp"
         android:text="1 Năm\n60 điểm"
+        app:buttonColor="@color/btnSignActiveCre"
         app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textDescript" />
 
-    <Button
+    <info.hoang8f.widget.FButton
         android:id="@+id/button3"
         android:layout_width="267dp"
-        android:layout_height="49dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="80dp"
         android:layout_marginRight="80dp"
+        android:textColor="#fff"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="80dp"
         android:elevation="4dp"
         android:text="3 tháng \n15 điểm"
-        app:layout_constraintHorizontal_bias="0.488"
+        app:buttonColor="@color/btnSignActiveCre"
+        app:layout_constraintHorizontal_bias="0.465"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button4" />
 
-    <Button
+    <info.hoang8f.widget.FButton
         android:id="@+id/button4"
         android:layout_width="267dp"
-        android:layout_height="49dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="80dp"
+        android:textColor="#fff"
         android:layout_marginRight="80dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="80dp"
         android:text="6 tháng\n30 điểm"
         app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        app:layout_constraintTop_toBottomOf="@+id/button2"
+        app:cornerRadius="4dp"
+        app:shadowEnabled="true"
+        app:buttonColor="@color/btnSignActiveCre"
+        app:shadowHeight="5dp"/>
 
 </android.support.constraint.ConstraintLayout>
