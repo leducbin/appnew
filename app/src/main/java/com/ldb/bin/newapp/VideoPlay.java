@@ -33,6 +33,8 @@ import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.decoder.DecoderCounters;
+import com.google.android.exoplayer2.ext.ima.ImaAdsLoader;
+import com.google.android.exoplayer2.ext.ima.ImaAdsMediaSource;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.extractor.ExtractorsFactory;
 import com.google.android.exoplayer2.source.LoopingMediaSource;
@@ -76,6 +78,7 @@ public class VideoPlay extends AppCompatActivity implements VideoRendererEventLi
     private SimpleExoPlayer player;
     private SharedPreferences sharedPreferences;
     private ImageView close_video;
+    private ImaAdsLoader imaAdsLoader;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,6 +115,7 @@ public class VideoPlay extends AppCompatActivity implements VideoRendererEventLi
         simpleExoPlayerView = new SimpleExoPlayerView(this);
         simpleExoPlayerView = (SimpleExoPlayerView) findViewById(R.id.player_view);
 
+
 //Set media controller
         simpleExoPlayerView.setUseController(true);
         simpleExoPlayerView.requestFocus();
@@ -142,8 +146,10 @@ public class VideoPlay extends AppCompatActivity implements VideoRendererEventLi
 
                         Uri mp4VideoUri = Uri.parse(src); //Radnom 540p indian channel
 
-
-
+                        String adTagUrl = "https://pubads.g.doubleclick.net/gampad/live/ads?sz=640x480&iu=%2F21635228936%2FDANET-Web-PreRoll-Unilever-Glee&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&url=[referrer_url]&description_url=[description_url]&correlator=[timestamp";
+                        adTagUrl = adTagUrl.replace("%%CACHEBUSTER%%", String.valueOf(System.currentTimeMillis()));
+                        imaAdsLoader = new ImaAdsLoader(VideoPlay.this,
+                                Uri.parse(adTagUrl));
 
 
 //Measures bandwidth during playback. Can be null if not required.
@@ -162,10 +168,17 @@ public class VideoPlay extends AppCompatActivity implements VideoRendererEventLi
 
 //FOR LIVESTREAM LINK:
                         MediaSource videoSource = new HlsMediaSource(mp4VideoUri, dataSourceFactory, 1, null, null);
-                        final LoopingMediaSource loopingSource = new LoopingMediaSource(videoSource);
+
+                        final MediaSource  mMediaSource = new ImaAdsMediaSource(
+                                    videoSource,
+                                    dataSourceFactory,
+                                    imaAdsLoader,
+                                    simpleExoPlayerView.getOverlayFrameLayout());
+                        player.prepare(mMediaSource);
+//                        final LoopingMediaSource loopingSource = new LoopingMediaSource(videoSource);
 
 // Prepare the player with the source.
-                        player.prepare(loopingSource);
+//                        player.prepare(loopingSource);
 
                         player.addListener(new ExoPlayer.EventListener() {
                             @Override
@@ -197,7 +210,7 @@ public class VideoPlay extends AppCompatActivity implements VideoRendererEventLi
                             public void onPlayerError(ExoPlaybackException error) {
                                 Log.v(TAG, "Listener-onPlayerError...");
                                 player.stop();
-                                player.prepare(loopingSource);
+                                player.prepare(mMediaSource);
                                 player.setPlayWhenReady(true);
                             }
 
@@ -285,6 +298,7 @@ public class VideoPlay extends AppCompatActivity implements VideoRendererEventLi
 
     @Override
     protected void onStop() {
+        player.release();
         super.onStop();
         Log.v(TAG, "onStop()...");
     }
@@ -310,6 +324,7 @@ public class VideoPlay extends AppCompatActivity implements VideoRendererEventLi
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        imaAdsLoader.release();
         Log.v(TAG, "onDestroy()...");
         player.release();
     }
