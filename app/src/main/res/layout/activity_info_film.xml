@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_video"
@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/bg_info"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="600dp" />
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,59 +22,10 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             >
-
-            <android.support.design.widget.AppBarLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/AppTheme.AppBarOverlayInfo">
-
-            <android.support.design.widget.CollapsingToolbarLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:contentScrim="#000"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:expandedTitleTextAppearance="@android:color/transparent"
-                android:fitsSystemWindows="true"
-                >
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar_video"
-                android:background="@drawable/abc"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_scrollFlags="scroll|enterAlways"
-                app:layout_collapseMode="pin">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                <TextView
-                    android:gravity="center"
-                    android:id="@+id/txtbar_video"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Miễn Phí"
-                    android:textSize="25sp"
-                    android:textColor="#ffffff"
-                    android:layout_gravity="center"
-                    />
-                <ImageView
-                    android:layout_alignParentRight="true"
-                    android:id="@+id/cencelview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginRight="20dp"
-                    android:src="@drawable/ic_action_name"
-                    />
-                </RelativeLayout>
-            </android.support.v7.widget.Toolbar>
-            </android.support.design.widget.CollapsingToolbarLayout>
-            </android.support.design.widget.AppBarLayout>
             <RelativeLayout
                 android:id="@+id/info_play"
                 android:layout_width="match_parent"
-                android:layout_height="450dp">
+                android:layout_height="600dp">
                 <ImageView
                     android:background="#000"
                     android:id="@+id/videoview"
@@ -85,8 +36,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:background="@drawable/ic_video"
                     android:layout_centerInParent="true"
                     />
@@ -286,4 +237,56 @@
     </ScrollView>
 
 
-</android.support.v4.widget.DrawerLayout>
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:expandedTitleTextAppearance="@android:color/transparent"
+            android:fitsSystemWindows="true"
+            >
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_video"
+                android:background="#00ffffff"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:layout_collapseMode="pin">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/txtbar_video"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Miễn Phí"
+                        android:textSize="25sp"
+                        android:textColor="#ffffff"
+                        android:layout_gravity="center"
+                        />
+                    <ImageView
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/cencelview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginRight="20dp"
+                        android:src="@drawable/ic_action_name"
+                        />
+                </RelativeLayout>
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.CollapsingToolbarLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_inbox"
+        android:backgroundTint="#fff"
+        />
+
+
+</android.support.design.widget.CoordinatorLayout>

@@ -114,7 +114,6 @@ public class MainActivity extends AppCompatActivity
     int menu = 0;
     int REQUEST_CODE_EDIT = 123;
     int REQUEST_LOGOUT = 234;
-    Button buttonLogin;
     SharedPreferences sharedPreferences;
 
     @Override
@@ -125,19 +124,18 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        AnhXa();
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         View hView =  navigationView.getHeaderView(0);
         TextView buttonLogin = (TextView) hView.findViewById(R.id.SignIn);
+        AnhXa();
+
 
 
         if(!sharedPreferences.getString("accessToken","").equals(""))
@@ -257,6 +255,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void AnhXa() {
+
+
+
         viewPager = (ViewPager) findViewById(R.id.pager);
         naviView = (NavigationView) findViewById(R.id.navi_menu);
         listviewmain = (RecyclerView) findViewById(R.id.listview_menu);
@@ -641,6 +642,11 @@ public class MainActivity extends AppCompatActivity
                 editor.putString("devices",jsonObject_new.getString("family_name"));
                 editor.putString("subscription",jsonObject_new.getString("subscription"));
                 editor.commit();
+                NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+                navigationView.setNavigationItemSelectedListener(this);
+
+                View hView =  navigationView.getHeaderView(0);
+                TextView buttonLogin = (TextView) hView.findViewById(R.id.SignIn);
                 buttonLogin.setText(jsonObject_new.getString("family_name") + " " +jsonObject_new.getString("given_name"));
 
             } catch (JSONException e) {
@@ -651,6 +657,11 @@ public class MainActivity extends AppCompatActivity
         {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.clear().commit();
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            navigationView.setNavigationItemSelectedListener(this);
+
+            View hView =  navigationView.getHeaderView(0);
+            TextView buttonLogin = (TextView) hView.findViewById(R.id.SignIn);
             buttonLogin.setText("Đăng Nhập - Đăng Ký");
         }
         super.onActivityResult(requestCode, resultCode, data);

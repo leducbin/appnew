@@ -62,7 +62,7 @@
                     android:layout_height="match_parent"
                     android:text="MIỄN PHÍ"
                     android:textSize="25sp"
-                    android:textColor="#06ca31"
+                    android:textColor="#ffffff"
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:paddingRight="20dp"

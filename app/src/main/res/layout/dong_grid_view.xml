@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="120dp"
-    android:layout_height="210dp"
+android:layout_width="150dp"
+android:layout_height="200dp"
+android:paddingTop="2dp"
+android:paddingBottom="2dp"
+android:orientation="vertical">
+<RelativeLayout
+    android:padding="1dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:background="@drawable/border_set_2"
+    android:layout_gravity="center"
     >
     <ImageView
-        android:padding="1dp"
         android:id="@+id/image_grip"
-        android:scaleType="fitXY"
-        android:layout_width="120dp"
-        android:layout_height="210dp"
-        />
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:scaleType="fitXY"/>
+</RelativeLayout>
 </LinearLayout>
